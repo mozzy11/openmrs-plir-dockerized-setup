@@ -48,7 +48,7 @@ To run the project , follow the instructions below .
          
   > Note : substitute `<date>` in the GET request with your actual date parameter  .  
 
-   6. You can use a [plir-widget](https://github.com/mozzy11/plir-widget) innitially develeoped by the bahmni-plir team , to easily query and  visualise the Measure report generated from the HAPI-FHIR server .
+   6. You can use the plir-widget to easily query and  visualise the Measure report generated from the HAPI-FHIR server .see widget source code under `plir-widget/widget-source`
    
 * install the [http-server](https://www.npmjs.com/package/http-server)  .
  see inginix (proxy-server) config under  `plir-widget/config/nginx.conf`  . 
@@ -80,31 +80,34 @@ To run the project , follow the instructions below .
        ./scripts/regenerate-library.sh
   > The above script encodes the cql logic into Base64 format and rebuilds the TX_PVLS Library  
 
-## TESTING PLIR SETUP
+## AUTOMATED PLIR TESTING 
 We use the [hie-automation-tests](https://github.com/CDCgov/hie-automation-tests) framework to test the PLIR pipeline work flow . 
 
-Clone the  [extended hie-automation-tests](https://github.com/mozzy11/hie-automation-tests) framework that Supports Testing PLIR workflow.
+Clone the  [extended hie-automation-tests](https://github.com/openmrs/hie-automation-tests) framework that Supports Testing PLIR workflow.
 
-    git clone https://github.com/mozzy11/hie-automation-tests.git
+    git clone https://github.com/openmrs/hie-automation-tests.git
 
-see more [details](https://github.com/mozzy11/hie-automation-tests/blob/master/PLIR-TEST.md) 
+see more [details](https://github.com/openmrs/hie-automation-tests/blob/master/PLIR-TEST.md) 
 ### Prerequisites
 
 * Python version >= 3.7
 * Behave version >= 1.2
-* Debezium-FHir-Analytics 
+* Debezium-FHIR-Analytics component
 * OpenMRS
 * OpenHIM 
 * HAPI-FHIR
 
 ### Configuration 
-Follow the Intructions at https://github.com/openmrs/openmrs-plir-dockerized-setup to run a full configured  PLIR setup. 
-
-Update the Configuration in the config.json file located under the `features/config` folder . ONly OpenMRS , OpenHIM and HapiFHIR are required
+ 
+Update the Configuration in the config.json file located under the `features/config` folder . Only OpenMRS , OpenHIM and HapiFHIR are required
 
 NOTE :The deafult  configuration are mapped to the default configuration in the [dockerized PLIR setup](https://github.com/openmrs/openmrs-plir-dockerized-setup)
 
-You can execute the test with the below statement under the root directory. 
+See sample observation data Posted to OpenMRS under `features/data` ie `obs1.json ,obs2.json ,obs3.json` .In case any values are adjusted in the above sample data, adjust the expected TX_PVLS score (rounded off to two decimal places) ie TX_PVLS-SCORE in the config file
+
+* The Test will work best before you add any data to OpenMRS
+
+Execute the test with the  command below, under the root directory,but first ensure the PLIR pipeline is up and running.
 
 	behave --no-logcapture --include ./features/PLIR
  	
@@ -116,7 +119,7 @@ The tests will
 
 ## Main Repositories
 * Hapi FHir for OpenMRS PLIR https://github.com/openmrs/openmrs-contrib-plm-fhir-server
-* Analytics Engine Pipeline   https://github.com/GoogleCloudPlatform/openmrs-fhir-analytics
+* OpenMRS FHIR Analytics tool   https://github.com/GoogleCloudPlatform/openmrs-fhir-analytics
 
 
 
